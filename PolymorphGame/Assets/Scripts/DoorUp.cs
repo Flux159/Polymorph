@@ -4,8 +4,9 @@ using System.Collections;
 public class DoorUp : MonoBehaviour, IFocusable
 {
 	public bool openDoor;
-	public float smooth = 1;
+	public float smooth = 3.0f;
 	public float howFarUp = 4.0f;
+	public AudioClip doorSliding;
 	private Vector3 newPosition;
 	private Transform thingToMove;
 
@@ -25,10 +26,13 @@ public class DoorUp : MonoBehaviour, IFocusable
 	void PositionChanging ()
 	{
 		thingToMove.position = Vector3.Lerp (thingToMove.position, newPosition, smooth * Time.deltaTime);
+			
 	}
 
 	public bool OnFocus ()
 	{
+		audio.clip = doorSliding;
+		audio.Play ();	
 		openDoor = true;
 		return false;
 	}
